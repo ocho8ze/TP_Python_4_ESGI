@@ -14,6 +14,7 @@ class Capture:
         interface = self.interface
         logger.info(f"Capture traffic from interface {interface}")
 
+
     def sort_network_protocols(self) -> str:
         """
         Sort and return all captured network protocols
@@ -29,14 +30,11 @@ class Capture:
     def analyse(self, protocols: str) -> None:
         """
         Analyse all captured data and return statement
-        Si un tra c est illégitime (exemple : Injection SQL, ARP
-        Spoo ng, etc)
+        Si un tra c est illégitime (exemple : Injection SQL, ARP Spoofing, etc)
         a Noter la tentative d'attaque.
-        b Relever le protocole ainsi que l'adresse réseau/physique
-        de l'attaquant.
-        c (FACULTATIF) Opérer le blocage de la machine
-        attaquante.
-        Sinon a cher que tout va bien
+        b Relever le protocole ainsi que l'adresse réseau/physique de l'attaquant.
+        c (FACULTATIF) Opérer le blocage de la machine attaquante.
+        Sinon montrer que tout va bien
         """
         all_protocols = self.get_all_protocols()
         sort = self.sort_network_protocols()
