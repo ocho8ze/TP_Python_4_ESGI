@@ -1,4 +1,5 @@
 from scapy.all import *
+from tp1.utils.config import logger
 
 def choose_interface() -> str:
     """
@@ -7,20 +8,25 @@ def choose_interface() -> str:
     :return: network interface
     """
     print('Select the number of the network interface to capture on.')
+
     relevant_interfaces = list_relevant_interfaces()
     for i, (iface ,ip) in enumerate (relevant_interfaces):
         print(f'{i}: {iface} : {ip}')
-    is_valid = False
-    while is_valid != True :
-        interface_index = int(input('Network interface: '))
-        if interface_index == '':
-            print('Blank ?')
-        elif interface_index > (len(relevant_interfaces) - 1) or interface_index < 0:
-            print('Invalid network interface')
-        else :
-            interface = relevant_interfaces[interface_index]
-            is_valid = True
-    return interface
+
+    while True :
+        interface_index_raw = input('Network interface: ').strip()
+        if interface_index_raw == '':
+            logger.warning('Blank ?')
+            continue
+        try :
+            interface_index = int(interface_index_raw)
+        except ValueError:
+            logger.warning('Not an integer')
+            continue
+        if interface_index > (len(relevant_interfaces) - 1) or interface_index < 0:
+            logger.warning('Invalid network interface')
+            continue
+        return relevant_interfaces[interface_index][0]
 
 def list_relevant_interfaces() -> list[tuple[str, str]]:
 

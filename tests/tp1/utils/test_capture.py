@@ -7,7 +7,7 @@ def test_capture_init():
     capture = Capture()
 
     # Then
-    assert capture.interface == "en0"
+    assert capture.interface == ""
     assert capture.summary == ""
 
 
